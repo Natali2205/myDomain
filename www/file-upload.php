@@ -25,9 +25,7 @@ if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) {
 } else {
    echo "Можлива атака за допомогою файлової загрузки!\n";
 }
-
 echo "Деяка інформація:";
 print_r($_FILES);
-
 
 ?>
