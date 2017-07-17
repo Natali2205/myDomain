@@ -22,7 +22,7 @@ $uploadfile = "uploads/".$_FILES['userfile']['name'];
 echo '<pre>';
 if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) {
    echo "Файл коректний і був успішно завантажений.\n";
-    if($_FILES["filename"]["size"] > 1024*3*1024)
+    if($_FILES["userfile"]["size"] > 1024*3*1024)
    {
      echo ("Розмір файла перебільшує 3 Мб");
      exit;
