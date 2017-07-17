@@ -27,7 +27,7 @@ if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) {
      echo ("Розмір файла перебільшує 3 Мб");
      exit;
    }
-} else {
+ }else {
    echo "Можлива атака за допомогою файлової загрузки!\n";
 }
 echo "Деяка інформація:";
