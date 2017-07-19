@@ -20,6 +20,8 @@ echo $_FILES['userfile'];
 
 $uploadfile = "uploads/".$_FILES['userfile']['name'];
 echo '<pre>';
+if (!is_dir($uploads))
+   {mkdir($folder, 0777, true)}
 if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) {
    echo "Файл коректний і був успішно завантажений.\n";
     if($_FILES["userfile"]["size"] > 1024*3*1024)
@@ -28,8 +30,16 @@ if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) {
      exit;
    }
  }else {
-   echo "Можлива атака за допомогою файлової загрузки!\n";
+   echo "Сталася помилка при завантаженні файлу.
+Деяка налагоджувальна інформація:\n";
+   echo($_FILES);
+
+} print "</pre>"; ?>
 }
+if (file_exists($uploadfile)) {
+    echo "Файл <b>$uploadfile</b> існує";}
+else {
+    echo "Файл <b>$uploadfile</b> НЕ існує";}
 echo "Деяка інформація:";
 print_r($uploadfile);
 
