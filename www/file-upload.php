@@ -37,7 +37,22 @@ if (file_exists($uploadfile)) {
 //else {
 //    echo "Файл <b>$uploadfile</b> НЕ існує";}
 echo "Деяка інформація:";
-
+ }
+ $extension_array=array('jpg', 'png','jpg');
+ if (is_dir($uploadfile)){
+	 $files=scandir($uploadfile);
+	 for ($i=0; $i<count($files);$i++){
+		 if($files[$i]!='.'&&$files[$i]!='..'){
+			 echo "File Name-> $files[$i] <br>";
+		$file=pathinfo($files[$i];
+        $extension=$file['extension'];
+             echo "File extension-> $extension<br>";
+        if (in_array($extension, $extension_array)){
+			echo "<img src='$uploadfile$files[$i]' style='width:200px; height:200px;'><br>";
+			}
+		 }
+	 }
+ }	 
 $picture_filename = $_FILES['userfile']['name'];
 $picture_fileplace = $_FILES['userfile']['tmp_name'];
 $picture_filetype = $_FILES['userfile']['type'];
@@ -50,3 +65,4 @@ $picture_filesize = $_FILES['userfile']['size'];
  echo $picture_filetype;
  echo '<hr>';
  echo $picture_filesize;
+ 
