@@ -1,70 +1,79 @@
 <?php
-//$n= $_POST['userfile[]'];
-//echo $_SERVER['HTTP_USER_AGENT'];
-echo $_FILES['userfile'];
-
-//$uploaddirec = '/myDomain/www/uploads/';
-
+//echo $_FILES['userfile'];
 $uploadfile = "uploads/" . $_FILES['userfile']['name'];
 $folder = "uploads/";
-echo '<pre>';
+//echo '<pre>';
 if (!is_dir($folder)&& mkdir($folder, 0777, true)){
-    echo("Р†СЃРЅСѓС” РїР°РїРєР°");
+    echo("Існує папка");
     exit;
 }
 if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) {
-    echo "Р¤Р°Р№Р» РєРѕСЂРµРєС‚РЅРёР№ С– Р±СѓРІ СѓСЃРїС–С€РЅРѕ Р·Р°РІР°РЅС‚Р°Р¶РµРЅРёР№.\n";
+    echo "Файл коректний і був успішно завантажений.\n";
     if ($_FILES["userfile"]["size"] > 1024 * 3 * 1024) {
-        echo("Р РѕР·РјС–СЂ С„Р°Р№Р»Р° РїРµСЂРµР±С–Р»СЊС€СѓС” 3 РњР±");
+        echo("Розмір файла перебільшує 3 Мб");
         exit;
     }
 } else {
-    echo "РЎС‚Р°Р»Р°СЃСЏ РїРѕРјРёР»РєР° РїСЂРё Р·Р°РІР°РЅС‚Р°Р¶РµРЅРЅС– С„Р°Р№Р»Сѓ.
-Р”РµСЏРєР° РЅР°Р»Р°РіРѕРґР¶СѓРІР°Р»СЊРЅР° С–РЅС„РѕСЂРјР°С†С–СЏ:\n";
+    echo "Сталася помилка при завантаженні файлу.\n";
     echo($_FILES);
 
 
     if ($picture_filesize == 0) {
-        exit ("Р—Р°РІР°РЅС‚Р°Р¶РµРЅРёР№ С„Р°Р№Р» С” РїСѓСЃС‚РёРј");
+        exit ("Завантажений файл є пустим");
     }
 
     $imageinfo = getimagesize($_FILES['userfile']['tmp_name']);
     if ($imageinfo['mime'] != 'image/png' && $imageinfo['mime'] != 'image/jpeg' && $imageinfo['mime'] != 'image/jpg')
-        exit ("Р РѕР·С€РёСЂРµРЅРЅСЏ Р·РѕР±СЂР°Р¶РµРЅРЅСЏ РїРѕРІРёРЅРЅРѕ Р±СѓС‚Рё jpg, jpeg, png ");
+        exit ("Розширення зображення повинно бути jpg, jpeg, png ");
     print "</pre>";
 
     if (file_exists($uploadfile)) {
-        echo "Р¤Р°Р№Р» <b>$uploadfile</b>Р¤Р°Р№Р» Р· С‚Р°РєРѕСЋ РЅР°Р·РІРѕСЋ РІР¶Рµ С–СЃРЅСѓС”";
+        echo "Файл <b>$uploadfile</b>Файл з такою назвою вже існує";
     }
-//else {
-//    echo "Р¤Р°Р№Р» <b>$uploadfile</b> РќР• С–СЃРЅСѓС”";}
-    echo "Р”РµСЏРєР° С–РЅС„РѕСЂРјР°С†С–СЏ:";
+    echo "Деяка інформація:";
 }
- $extension_array = array('jpg', 'png', 'jpg');
+/* $extension_array = array('jpg', 'png', 'jpg');
  if (is_dir($folder)) {
      $files = scandir($folder);
-     for ($i = 0; $i < count($files); $i++) {
+    for ($i = 0; $i < count($files); $i++) {
          if ($files[$i] != '.' && $files[$i] != '..') {
              echo "File Name-> $files[$i]" . "" . " <br>";
-             $file = pathinfo($files[$i];
-             $extension = $file['extension'];
+               $file = pathinfo($files[$i]);
+      //       $filem=end($files);
+             $extension = $filem['extension'];
              echo "File extension-> $extension<br>";
              if (in_array($extension, $extension_array)) {
                  echo "<img src='" . $folder . $files[$i] . "' style='width:200px; height:200px;'><br>";
-             }
+            }
          }
      }
- }	 
+ }*/
+
+$image=$_FILES["file"]["name"]; /* взображення*/
+$img="uploads/".$image;
+    echo '<img src= "'.$img.'">'; 
+/*if(is_dir($folder)){
+     if($open=opendir($folder))
+        {
+         while(($file=readdir($open)) !=false)
+         {
+             if($file== '.' || $file== '..') continue;
+            echo '<img src="upload/"' . $file . '"width=150px height =150px>';
+         }
+         closedir($open);
+        }
+     }*/
 $picture_filename = $_FILES['userfile']['name'];
 $picture_fileplace = $_FILES['userfile']['tmp_name'];
 $picture_filetype = $_FILES['userfile']['type'];
-$picture_filesize = $_FILES['userfile']['size'];
+$picture_filesize = $_FILES['userfile']['size']/1024;
+ echo '<hr>';
+ echo "Назва картинки: " . $picture_filename;
+ echo '<hr>';
+ echo "Шлях до файлу: " . $picture_fileplace;
+ echo '<hr>';
+ echo "Тип: " . $picture_filetype;
+ echo '<hr>';
+ echo "Розмір: " . $picture_filesize . " (кб)";
  
- echo $picture_filename;
- echo '<hr>';
- echo $picture_fileplace;
- echo '<hr>';
- echo $picture_filetype;
- echo '<hr>';
- echo $picture_filesize;
  
