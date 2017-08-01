@@ -18,7 +18,7 @@ if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) {
     echo($_FILES);
 
 
-    if ($picture_filesize == 0) {
+    if ($_FILES["userfile"]["size"] == 0) {
         exit ("Завантажений файл є пустим");
     }
 
@@ -29,9 +29,11 @@ if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) {
 
     if (file_exists($uploadfile)) {
         echo "Файл <b>$uploadfile</b>Файл з такою назвою вже існує";
-    }
+    }else{
     echo "Деяка інформація:";
+    }
 }
+
 /* $extension_array = array('jpg', 'png', 'jpg');
  if (is_dir($folder)) {
      $files = scandir($folder);
@@ -51,7 +53,14 @@ if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) {
 
 $image=$_FILES["file"]["name"]; /* взображення*/
 $img="uploads/".$image;
-    echo '<img src= "'.$img.'">'; 
+    echo '<hr>' . '<img src= "'.$img.'">'; 
+ 	
+$ext = substr($_FILES['userfile']['name'], 1 + strrpos($_FILES['userfile']['name'], "."));
+if (in_array($ext,array('jpeg','jpe','jpg'))) $p = 'jpeg';
+if (in_array($ext,array('gif'))) $p = 'gif';
+if (in_array($ext,array('png'))) $p = 'png';
+$filetype = "Файл має розширення: " . '.' .$p;
+
 /*if(is_dir($folder)){
      if($open=opendir($folder))
         {
@@ -67,13 +76,14 @@ $picture_filename = $_FILES['userfile']['name'];
 $picture_fileplace = $_FILES['userfile']['tmp_name'];
 $picture_filetype = $_FILES['userfile']['type'];
 $picture_filesize = $_FILES['userfile']['size']/1024;
- echo '<hr>';
- echo "Назва картинки: " . $picture_filename;
- echo '<hr>';
- echo "Шлях до файлу: " . $picture_fileplace;
- echo '<hr>';
- echo "Тип: " . $picture_filetype;
- echo '<hr>';
- echo "Розмір: " . $picture_filesize . " (кб)";
+ 
+ echo '<hr>' . "Назва картинки: " . $picture_filename;
+ echo '<hr>' . $filetype;
+ echo '<hr>' . "Розмір: " . $picture_filesize . " (Kb)";
+ echo '<hr>' . "Тип: " . $picture_filetype;
+ echo '<hr>' . "Шлях до файлу: " . $picture_fileplace;
+
+ 
+
  
  
